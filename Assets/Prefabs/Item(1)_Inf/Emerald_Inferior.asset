@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a8cb97b168c1e4da76179d3e942095, type: 3}
+  m_Name: Emerald_Inferior
+  m_EditorClassIdentifier: 
+  itemName: "\u30A8\u30E1\u30E9\u30EB\u30C9"
+  itemImage: {fileID: 21300000, guid: 5762603839cef2048bf84ccf933621e0, type: 3}
+  itemQuality: 3
+  BasicPrice: 2
+  price: 0
+  type: 1
+  MaxStack: 32
