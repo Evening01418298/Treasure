@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Text staminaText;
     [HideInInspector]
     [SerializeField] private float stamina;
-
+    [SerializeField] private float upGreadStamina;
 
     private bool isRunning;
 
@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
         Look();
     }
 
+    /// <summary>
+    /// プレイヤーの移動処理
+    /// </summary>
     public void Move()
     {
         // 地面に接しているかチェック
@@ -91,6 +94,12 @@ public class PlayerController : MonoBehaviour
 
         // 垂直方向の移動も反映
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            maxStamina += upGreadStamina;
+        }
+
     }
     /// <summary>
     /// スタミナ回復や消費。UIへの反映
@@ -110,11 +119,17 @@ public class PlayerController : MonoBehaviour
         UpdateStaminaUI();
     }
 
+    /// <summary>
+    /// プレイヤーのステータスを表示する処理
+    /// </summary>
     public void UpdateStaminaUI()
     {
         staminaText.text = $"SP {Mathf.RoundToInt(stamina)} / {maxStamina}";
     }
 
+    /// <summary>
+    /// 視点移動の処理
+    /// </summary>
     public void Look()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -126,4 +141,21 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * mouseX);
     }
+
+    /// <summary>
+    /// アップグレードを取った時の処理
+    /// </summary>
+    public void UpGread()
+    {
+
+    }
+
+    /// <summary>
+    /// 敵から被弾したときの処理
+    /// </summary>
+    public void PainDamage()
+    {
+
+    }
+
 }
