@@ -8,12 +8,19 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] private ImageButton startButton;
     [SerializeField] private ImageButton continueButton;
     [SerializeField] private ImageButton endButton;
+    //[SerializeField] private ImageButton optionButton;
+    //[SerializeField] private ImageButton windowButton;
+    //[SerializeField] private ImageButton titleButton;
 
     private void Awake()
     {
         startButton.onClick.AddListener(OnStart);
         continueButton.onClick.AddListener(OnContinue);
         endButton.onClick.AddListener(OnEnd);
+
+        //optionButton.onClick.AddListener(OnOption);
+        //windowButton.onClick.AddListener(OnWindow);
+        //titleButton.onClick.AddListener(OnTitle);
     }
     /// <summary>
     /// Startボタンが押された
@@ -39,5 +46,29 @@ public class ButtonManager : MonoBehaviour
 #else
     Application.Quit();//ゲームプレイ終了
 #endif
+    }
+
+    /// <summary>
+    /// 設定ボタンが押された時
+    /// </summary>
+    public void OnOption()
+    {
+        Debug.Log("Option");
+    }
+
+    /// <summary>
+    /// 画面サイズ変更ボタンが押された時
+    /// </summary>
+    public void OnWindow()
+    {
+        Debug.Log("Window");
+    }
+
+    /// <summary>
+    /// 「タイトルへ」ボタンが押された時
+    /// </summary>
+    public void OnTitle()
+    {
+        Debug.Log("Title");
     }
 }

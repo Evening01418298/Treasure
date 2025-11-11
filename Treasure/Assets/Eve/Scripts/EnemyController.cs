@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Animator emAnim;
     private int animNum;
 
+    //アニメーション番号
     private static readonly Dictionary<int, int> animTriggers = new()
     {
         { 0, Animator.StringToHash("Idle") },
@@ -27,18 +28,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator SwitchAnimationLoop()
     {
-        while(true)
-        {
-            yield return new WaitForSeconds(5f);
-            if (animNum == 0)
-            {
-                SetAnim(1);
-            }
-            else
-            {
-                SetAnim(0);
-            }
-        }
+        yield return new WaitForSeconds(5f);
     }
 
     public void SetAnim(int newAnimNum)
@@ -47,7 +37,7 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
-        animNum = newAnimNum;
+        animNum = Random.Range(0, 6);
         emAnim.SetTrigger(animTriggers[animNum]);
     }
 

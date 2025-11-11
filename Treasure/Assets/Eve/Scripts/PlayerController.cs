@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isRunning;
 
+    [Header("UI")]
+    [Tooltip("Option_BGを入れてね")]
+    public  GameObject displayWindow;
 
     [Header("カメラ関連")]
     public Transform cameraTrans;
@@ -43,14 +46,34 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         stamina = maxStamina;
         Cursor.visible = false;
+        displayWindow.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        //displayWindowが表示されているときはPlayerの入力を拒否
+        //本当はゲームタイマーを止めるべき
+        if (displayWindow.activeSelf == false)
+        {
+            Move();
+            Look();
+        }
         HandleStamina();
-        Look();
+        PlayerInput();
+    }
+
+    /// <summary>
+    /// Playerの入力状況。移動操作以外
+    /// </summary>
+    public void PlayerInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            bool windowIsActive = displayWindow.activeSelf;
+            displayWindow.SetActive(!windowIsActive);
+            Debug.Log("displayWindowのアクティブ状態は : " + displayWindow.activeSelf);
+        }
     }
 
     /// <summary>
@@ -153,7 +176,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 敵から被弾したときの処理
     /// </summary>
-    public void PainDamage()
+    public void Damage()
     {
 
     }
