@@ -1,74 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    [Header("用意したボタンを入れる")]
-    [SerializeField] private ImageButton startButton;
-    [SerializeField] private ImageButton continueButton;
-    [SerializeField] private ImageButton endButton;
-    //[SerializeField] private ImageButton optionButton;
-    //[SerializeField] private ImageButton windowButton;
-    //[SerializeField] private ImageButton titleButton;
+    public static ButtonManager Instance { get; private set; }
 
     private void Awake()
     {
-        startButton.onClick.AddListener(OnStart);
-        continueButton.onClick.AddListener(OnContinue);
-        endButton.onClick.AddListener(OnEnd);
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        //optionButton.onClick.AddListener(OnOption);
-        //windowButton.onClick.AddListener(OnWindow);
-        //titleButton.onClick.AddListener(OnTitle);
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+
     /// <summary>
-    /// Startボタンが押された
+    /// 下で探したボタンを登録
     /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SearchAndRegisterButtons();
+    }
+
+
+    /// <summary>
+    /// シーン内の指定した名前のボタンを探す
+    /// </summary>
+    private void SearchAndRegisterButtons()
+    {
+        TryFindButton("StartButton", OnStart);
+        TryFindButton("ContinueButton", OnContinue);
+        TryFindButton("EndButton", OnEnd);
+        TryFindButton("OptionButton", OnOption);
+        TryFindButton("WindowsizeButton", OnWindow);
+        TryFindButton("ToTitleButton", OnTitle);
+    }
+
+
+
+    private void TryFindButton(string objectName, UnityEngine.Events.UnityAction action)
+    {
+        var obj = GameObject.Find(objectName);
+        if(obj==null)
+        {
+            return;
+        }
+
+        var imageButton = obj.GetComponent<ImageButton>();
+        if(imageButton == null)
+        {
+            return;
+        }
+
+        imageButton.onClick.AddListener(action);
+        Debug.Log($"Button Registered: {objectName}");
+    }
+
+
     public void OnStart()
     {
         Debug.Log("Start");
     }
-    /// <summary>
-    /// Continueボタンが押された
-    /// </summary>
+
     public void OnContinue()
     {
         Debug.Log("Continue");
     }
-    /// <summary>
-    /// Endボタンが押された
-    /// </summary>
+
     public void OnEnd()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit();//ゲームプレイ終了
+        Application.Quit();
 #endif
     }
 
-    /// <summary>
-    /// 設定ボタンが押された時
-    /// </summary>
     public void OnOption()
     {
         Debug.Log("Option");
     }
 
-    /// <summary>
-    /// 画面サイズ変更ボタンが押された時
-    /// </summary>
     public void OnWindow()
     {
         Debug.Log("Window");
     }
 
-    /// <summary>
-    /// 「タイトルへ」ボタンが押された時
-    /// </summary>
     public void OnTitle()
     {
+        //SceneManager.LoadScene("Title");
         Debug.Log("Title");
     }
 }
