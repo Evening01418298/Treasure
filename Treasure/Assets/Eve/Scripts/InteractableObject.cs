@@ -12,9 +12,16 @@ public class InteractableObject : MonoBehaviour
 
     public Item[] items;
 
+    private void Awake()
+    {
+        items = new Item[1];
+    }
+
     public void OnInteract()
     {
         Debug.Log($"{gameObject.name} ‚ðŠJ‚¢‚½");
+
+        InventoryUI.Instance.ShowItems(items);
     }
 
 }

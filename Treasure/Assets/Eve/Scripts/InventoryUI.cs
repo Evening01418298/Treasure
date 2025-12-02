@@ -17,8 +17,10 @@ public class InventoryUI : MonoBehaviour
         Instance = this;
     }
 
-    private void ShowItems(InteractableObject.Item[] items)
+    public void ShowItems(InteractableObject.Item[] items)
     {
+        Debug.Log("ShowItems");
+
         uiPanel.SetActive(true);
 
         itemName.text = "";
