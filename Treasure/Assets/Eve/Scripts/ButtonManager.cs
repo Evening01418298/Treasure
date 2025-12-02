@@ -47,8 +47,6 @@ public class ButtonManager : MonoBehaviour
         TryFindButton("StartButton", OnStart);
         TryFindButton("ContinueButton", OnContinue);
         TryFindButton("EndButton", OnEnd);
-        TryFindButton("OptionButton", OnOption);
-        TryFindButton("WindowsizeButton", OnWindow);
         TryFindButton("ToTitleButton", OnTitle);
     }
 
@@ -91,17 +89,6 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
 #endif
     }
-
-    public void OnOption()
-    {
-        Debug.Log("Option");
-    }
-
-    public void OnWindow()
-    {
-        Debug.Log("Window");
-    }
-
     public void OnTitle()
     {
         //SceneManager.LoadScene("Title");

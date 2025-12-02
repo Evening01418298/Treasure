@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour
         {
             bool windowIsActive = displayWindow.activeSelf;
             displayWindow.SetActive(!windowIsActive);
-            Debug.Log("displayWindowのアクティブ状態は : " + displayWindow.activeSelf);
         }
     }
 
