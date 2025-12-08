@@ -33,6 +33,7 @@ public class CursorController : MonoBehaviour
     private void Update()
     {
         HitToObject();
+        OpenBox();
     }
 
     /// <summary>
@@ -40,6 +41,10 @@ public class CursorController : MonoBehaviour
     /// </summary>
     private void HitToObject()
     {
+        currentObj = null;
+        cursorImage.color = normalCol;
+
+        //画面中央
         Vector3 center = new Vector3(Screen.width / 2f, Screen.height / 2f);
 
         //Rayを照射
@@ -51,20 +56,21 @@ public class CursorController : MonoBehaviour
             {
                 cursorImage.color = hoverCol;
                 currentObj = hit.collider.GetComponent<InteractableObject>();
-            }
-            else
-            {
-                cursorImage.color = normalCol;
+                return;
             }
         }
-        else
-        {
-            cursorImage.color = normalCol;
-        }
-
+        //Rayが宝箱に当たっていない状態では常に非表示
+        InventoryUI.Instance.Hide();
+    }
+    /// <summary>
+    /// 宝箱の中身を表示するかを判定する最終的な場所
+    /// Rayが宝箱にhitしている且つ、左クリックが押されている状況
+    /// </summary>
+    private void OpenBox()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            if(currentObj != null)
+            if (currentObj != null)
             {
                 currentObj.OnInteract();
             }

@@ -7,27 +7,50 @@ public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
 
-    [SerializeField] private GameObject uiPanel;
-    [SerializeField] private Text itemName;
+    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private Transform itemsParent;
 
-    private bool panelIsActive;
+    private InteractableObject currentChest;
 
     private void Awake()
     {
         Instance = this;
+        gameObject.SetActive(false);
     }
 
-    public void ShowItems(InteractableObject.Item[] items)
+    public void ShowItems(InteractableObject chest)
     {
-        Debug.Log("ShowItems");
+        currentChest = chest;
+        gameObject.SetActive(true);
 
-        uiPanel.SetActive(true);
+        // 既存をクリア
+        foreach (Transform child in itemsParent)
+            Destroy(child.gameObject);
 
-        itemName.text = "";
-        foreach(var i in items)
+        // アイテムを並べる
+        foreach (var item in chest.items)
         {
-            itemName.text = "-" + i.itemName + "\n";
+            var obj = Instantiate(itemPrefab, itemsParent);
+            var ui = obj.GetComponent<ItemUI>();
+            ui.Setup(item, () => TakeItem(item));
         }
-
     }
+
+    private void TakeItem(ItemData item)
+    {
+        // プレイヤーインベントリへ追加（仮）
+        PlayerInventory.Instance.Add(item);
+
+        // 宝箱から削除
+        currentChest.items.Remove(item);
+
+        // UIを更新
+        ShowItems(currentChest);
+    }
+
+    public void Hide()
+    {
+        uiPanel.SetActive(false);
+    }
+
 }

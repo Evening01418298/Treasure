@@ -40,11 +40,13 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private float rotationX = 0f;
     private Vector3 velocity;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         stamina = maxStamina;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         displayWindow.SetActive(false);
     }
