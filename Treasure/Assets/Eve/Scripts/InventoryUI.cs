@@ -32,14 +32,14 @@ public class InventoryUI : MonoBehaviour
         {
             var obj = Instantiate(itemPrefab, itemsParent);
             var ui = obj.GetComponent<ItemUI>();
-            ui.Setup(item, () => TakeItem(item));
+            ui.SetUp(item);
         }
     }
 
     private void TakeItem(ItemData item)
     {
         // プレイヤーインベントリへ追加（仮）
-        PlayerInventory.Instance.Add(item);
+        //PlayerInventory.Instance.Add(item);
 
         // 宝箱から削除
         currentChest.items.Remove(item);
@@ -50,7 +50,7 @@ public class InventoryUI : MonoBehaviour
 
     public void Hide()
     {
-        uiPanel.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
 }

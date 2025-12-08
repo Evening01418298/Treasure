@@ -16,6 +16,7 @@ public class ItemData : ScriptableObject
 {
     [Header("基本情報")]
     public string itemName;
+    public Sprite itemImage;
 
     [Header("アイテム価格")]
     public int basePrice;

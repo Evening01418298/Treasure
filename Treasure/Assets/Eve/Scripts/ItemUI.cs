@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class ItemUI : MonoBehaviour
 {
-    [SerializeField] private Text itemNameText;
-    [SerializeField] private Button takeButton;
+    [SerializeField] private Text nameText;
 
-    private ItemData currentItem;
+    private ItemData item;
 
-    public void Setup(ItemData item, System.Action onTake)
+    public void SetUp(ItemData data)
     {
-        currentItem = item;
-        itemNameText.text = item.itemName;
-
-        takeButton.onClick.RemoveAllListeners();
-        takeButton.onClick.AddListener(() => onTake());
+        item = data;
+        nameText.text = data.itemName;
     }
+
+    public void OnClickGet()
+    {
+        //ここでプレイヤーのインベントリーに追加する予定
+    }
+
 }

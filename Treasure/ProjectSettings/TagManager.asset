@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - TresureBox
+  - Key
   layers:
   - Default
   - TransparentFX
