@@ -13,6 +13,7 @@ public class ItemUI : MonoBehaviour
     {
         item = data;
         nameText.text = data.itemName;
+        Debug.Log("wow");
     }
 
     public void OnClickGet()

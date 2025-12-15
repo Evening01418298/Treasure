@@ -11,17 +11,22 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform itemsParent;
 
     private InteractableObject currentChest;
-
+    private Vector3 parentPos;
     private void Awake()
     {
         Instance = this;
         gameObject.SetActive(false);
+
+        parentPos = itemsParent.position;
     }
 
     public void ShowItems(InteractableObject chest)
     {
+        int i = 0;
+
         currentChest = chest;
         gameObject.SetActive(true);
+        itemsParent.gameObject.SetActive(true);
 
         // 既存をクリア
         foreach (Transform child in itemsParent)
@@ -30,9 +35,10 @@ public class InventoryUI : MonoBehaviour
         // アイテムを並べる
         foreach (var item in chest.items)
         {
-            var obj = Instantiate(itemPrefab, itemsParent);
+            var obj = Instantiate(itemPrefab, parentPos - new Vector3(0, i * 80f, 0), Quaternion.identity, itemsParent);
             var ui = obj.GetComponent<ItemUI>();
             ui.SetUp(item);
+            i++;
         }
     }
 
@@ -51,6 +57,7 @@ public class InventoryUI : MonoBehaviour
     public void Hide()
     {
         this.gameObject.SetActive(false);
+        itemsParent.gameObject.SetActive(false);
     }
 
 }

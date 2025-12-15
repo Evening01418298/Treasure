@@ -11,7 +11,7 @@ public enum ItemQuality
 }
 
 
-[CreateAssetMenu(fileName = "CreateNewItem",menuName = "Item/ItemData")]
+[CreateAssetMenu(fileName = "CreateNewItem", menuName = "Item/ItemData")]
 public class ItemData : ScriptableObject
 {
     [Header("Šî–{î•ñ")]
@@ -26,13 +26,13 @@ public class ItemData : ScriptableObject
     {
         float multiplier = quality switch
         {
-            ItemQuality.Normal      => 1.0f,
-            ItemQuality.Rare        => 1.5f,
-            ItemQuality.Epic        => 2.0f,
-            ItemQuality.Legendary   => 3.0f,
+            ItemQuality.Normal => 1.0f,
+            ItemQuality.Rare => 1.5f,
+            ItemQuality.Epic => 2.0f,
+            ItemQuality.Legendary => 3.0f,
             _ => 1.0f
         };
 
         return Mathf.RoundToInt(basePrice * multiplier);
-    }   
+    }
 }

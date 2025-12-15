@@ -70,10 +70,10 @@ public class CursorController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //if (currentObj != null)
-            //{
-            //    currentObj.OnInteract();
-            //}
+            if (currentObj != null)
+            {
+                currentObj.Interact();
+            }
         }
     }
 }
